@@ -75,6 +75,11 @@ body {
     cursor: pointer;
 }
 
+/* Mobile menu active state */
+.nav-links.active {
+    display: flex;
+}
+
 /* Hero Section */
 .hero {
     min-height: 50vh;
@@ -454,10 +459,44 @@ footer a:hover {
     }
 }
 
+/* Image loading animation */
+img {
+    opacity: 0.6;
+    transition: opacity 0.3s ease-in-out;
+}
+
+img.loaded {
+    opacity: 1;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0.6; }
+    to { opacity: 1; }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-links {
         display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background-color: var(--white);
+        box-shadow: var(--shadow);
+        padding: 1rem 0;
+        text-align: center;
+        z-index: 999;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links a {
+        padding: 0.75rem 0;
     }
 
     .menu-btn {
@@ -487,6 +526,48 @@ footer a:hover {
 
     .rankings-grid, .advantages-grid, .sectors-grid, .incentives-container, .services-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* Tablet Styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .rankings-grid, .advantages-grid, .sectors-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .section {
+        padding: 2.5rem 1.5rem;
+    }
+    
+    .hero h1 {
+        font-size: 3rem;
+    }
+}
+
+/* Accessibility Improvements */
+a:focus, button:focus, .cta-button:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+.ranking-card:focus-within, .advantage-card:focus-within, 
+.sector-card:focus-within, .incentive-card:focus-within, 
+.service-card:focus-within {
+    box-shadow: 0 0 0 2px var(--accent-color), var(--shadow);
+}
+
+/* Active state for touch devices */
+@media (hover: none) {
+    .cta-button:active {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow);
+    }
+    
+    .ranking-card:active, .advantage-card:active, 
+    .sector-card:active, .incentive-card:active, 
+    .service-card:active {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
 }
 

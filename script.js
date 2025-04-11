@@ -3,7 +3,10 @@ const menuBtn = document.querySelector('.menu-btn');
 const navLinks = document.querySelector('.nav-links');
 
 menuBtn.addEventListener('click', () => {
-    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+    navLinks.classList.toggle('active');
+    // Update ARIA attributes for accessibility
+    const isExpanded = navLinks.classList.contains('active');
+    menuBtn.setAttribute('aria-expanded', isExpanded);
 });
 
 // Smooth Scrolling for Navigation Links
@@ -35,6 +38,8 @@ const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('animate');
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
             observer.unobserve(entry.target);
         }
     });
@@ -46,14 +51,6 @@ document.querySelectorAll('.section, .ranking-card, .advantage-card, .sector-car
     el.style.transform = 'translateY(20px)';
     el.style.transition = 'all 0.6s ease-out';
     observer.observe(el);
-});
-
-// Add animation class when element is in view
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.animate').forEach(el => {
-        el.style.opacity = '1';
-        el.style.transform = 'translateY(0)';
-    });
 });
 
 // Navbar Scroll Effect
